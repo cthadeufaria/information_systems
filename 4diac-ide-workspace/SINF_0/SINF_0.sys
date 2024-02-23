@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<System Comment="" Name="SINF_0">
+  <VersionInfo Author="eliseu" Date="2023-02-20" Version="1.0"/>
+  <Application Comment="" Name="SINF_0App">
+    <SubAppNetwork>
+      <FB Comment="" Name="MACHINE_SIMULATOR_1" Type="MACHINE_SIMULATOR" x="3750.0" y="250.0">
+        <Parameter Name="PARAMS_DATA" Value="[((15, 0.4), (10, 0.4)), ((19, 0.1), (16, 0.1))]"/>
+        <Parameter Name="LIM_ANOM" Value="0.3"/>
+        <Parameter Name="PARAMS_MTBF" Value="(18, 2.5)"/>
+        <Parameter Name="PARAMS_MTTS" Value="(2, 1.5)"/>
+        <Parameter Name="PARAMS_MTTR" Value="(5, 1.5)"/>
+        <Parameter Name="DELAY" Value="1"/>
+      </FB>
+      <FB Comment="" Name="MACHINE_SIMULATOR_1_1" Type="MACHINE_SIMULATOR" x="3750.0" y="1875.0">
+        <Parameter Name="PARAMS_DATA" Value="[((29, 0.7), (30, 0.7))]"/>
+        <Parameter Name="LIM_ANOM" Value="0.3"/>
+        <Parameter Name="PARAMS_MTBF" Value="(25, 2.5)"/>
+        <Parameter Name="PARAMS_MTTS" Value="(5, 1.5)"/>
+        <Parameter Name="PARAMS_MTTR" Value="(9, 1.5)"/>
+        <Parameter Name="DELAY" Value="1"/>
+      </FB>
+      <FB Comment="" Name="PROD_MAN" Type="PROD_MAN" x="1000.0" y="1000.0"/>
+      <EventConnections>
+        <Connection Comment="" Destination="MACHINE_SIMULATOR_1.ON-OFF" Source="PROD_MAN.ON-OFF_O" dx1="381.25"/>
+        <Connection Comment="" Destination="MACHINE_SIMULATOR_1_1.ON-OFF" Source="PROD_MAN.ON-OFF_O" dx1="381.25"/>
+      </EventConnections>
+    </SubAppNetwork>
+  </Application>
+  <Device Comment="" Name="FORTE_PC" Type="FORTE_PC" x="5250.0" y="2000.0">
+    <Parameter Name="MGR_ID" Value="&quot;localhost:61499&quot;"/>
+    <Attribute Comment="device profile" Name="Profile" Type="STRING" Value="HOLOBLOC"/>
+    <Attribute Comment="color" Name="Color" Type="STRING" Value="102,239,165"/>
+    <Resource Comment="" Name="DIN1" Type="EMB_RES" x="0.0" y="0.0">
+      <FBNetwork>
+        <FB Comment="" Name="MACHINE_SIMULATOR_1" Type="MACHINE_SIMULATOR" x="1375.0" y="625.0">
+          <Parameter Name="PARAMS_DATA" Value="[((15, 0.4), (10, 0.4)), ((19, 0.1), (16, 0.1))]"/>
+          <Parameter Name="LIM_ANOM" Value="0.3"/>
+          <Parameter Name="PARAMS_MTBF" Value="(18, 2.5)"/>
+          <Parameter Name="PARAMS_MTTS" Value="(2, 1.5)"/>
+          <Parameter Name="PARAMS_MTTR" Value="(5, 1.5)"/>
+          <Parameter Name="DELAY" Value="1"/>
+        </FB>
+        <FB Comment="" Name="MACHINE_SIMULATOR_1_1" Type="MACHINE_SIMULATOR" x="3750.0" y="1875.0">
+          <Parameter Name="PARAMS_DATA" Value="[((29, 0.7), (30, 0.7))]"/>
+          <Parameter Name="LIM_ANOM" Value="0.3"/>
+          <Parameter Name="PARAMS_MTBF" Value="(25, 2.5)"/>
+          <Parameter Name="PARAMS_MTTS" Value="(5, 1.5)"/>
+          <Parameter Name="PARAMS_MTTR" Value="(9, 1.5)"/>
+          <Parameter Name="DELAY" Value="1"/>
+        </FB>
+        <FB Comment="" Name="PROD_MAN" Type="PROD_MAN" x="1000.0" y="1000.0"/>
+        <EventConnections>
+          <Connection Comment="" Destination="MACHINE_SIMULATOR_1.ON-OFF" Source="PROD_MAN.ON-OFF_O"/>
+          <Connection Comment="" Destination="MACHINE_SIMULATOR_1_1.ON-OFF" Source="PROD_MAN.ON-OFF_O"/>
+        </EventConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Mapping From="SINF_0App.MACHINE_SIMULATOR_1" To="FORTE_PC.DIN1.MACHINE_SIMULATOR_1"/>
+  <Mapping From="SINF_0App.MACHINE_SIMULATOR_1_1" To="FORTE_PC.DIN1.MACHINE_SIMULATOR_1_1"/>
+  <Mapping From="SINF_0App.PROD_MAN" To="FORTE_PC.DIN1.PROD_MAN"/>
+  <Segment Comment="" Name="Ethernet" Type="Ethernet" dx1="1875.0" x="4681.25" y="1237.5">
+    <Attribute Comment="color" Name="Color" Type="STRING" Value="171,91,198"/>
+  </Segment>
+  <Link CommResource="FORTE_PC" Comment="" SegmentName="Ethernet"/>
+</System>
